@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
 	const portalGun = {
 		name: "portal gun",
 		description: "creates <strong class='color-f'>por</strong class='color-f'><strong class='color-e'>tals</strong class='color-e'> when shot at a surface<br>fire while crouched to create <strong class='color-e'>orange portals</strong class='color-e'>",

@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
     const enableSpiderPlayerModel = window.polyGonEnableSpiderPlayerModel === true;
     const spiderGroup = Matter.Body.nextGroup(true);
     function createShard(x, y, angle, length = 40) {

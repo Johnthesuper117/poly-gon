@@ -1,4 +1,4 @@
-javascript:(function(){
+(function(){
     let addBot = {
         harpoonBot(position = { x: player.position.x + 50 * (Math.random() - 0.5), y: player.position.y + 50 * (Math.random() - 0.5) }, isKeep = true) {
             const me = bullet.length;

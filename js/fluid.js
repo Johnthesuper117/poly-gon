@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
     const e = {
         name: "MR ferrofluid",
         descriptionFunction() { return `spray <b>ferrofluid particles</b> that <b>attract</b> and <b>solidify</b><br>drains <b>2.2</b> <b class="color-f">energy</b> per second<br><strong>${this.ammoPack.toFixed(0)}</strong> shots per ${powerUps.orb.ammo()}`},

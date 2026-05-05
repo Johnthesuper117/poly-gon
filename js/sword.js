@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
 	const e = {
 		name: "sword",
 		descriptionFunction() { return `swing a <b>sword</b> that <b style="color: indigo;">lifesteals</b> <strong class='color-h'>health</strong><br>drains <strong class='color-h'>health</strong> instead of ammunition<br>doesn't use <b>ammo</b>`},

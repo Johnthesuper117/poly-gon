@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
 	const e = {
 		name: "scythe",
 		descriptionFunction() { return `throw a <b>scythe</b> that keeps velocity upon collisions<br>drains <strong class='color-h'>health</strong> instead of ammunition<br>doesn't use <b>ammo</b>`},

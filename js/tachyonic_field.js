@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
 	const e = {
 		name: "tachyonic field",
 		description: `use <b class="color-f">energy</b> to gain a <b>burst</b> of <b>speed</b><br>multiply <b>momentum</b> <b>exponentially</b><br>16 <b class="color-f">energy</b> per second`,
