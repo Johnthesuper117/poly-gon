@@ -939,7 +939,7 @@ ${b.guns[b.inventory[i]].descriptionFunction()}</div> </div>`
             text += `<div id="gun-${i}" class="experiment-grid-module card-background ${b.guns[i].have ? " build-gun-selected" : ""}" onclick="build.choosePowerUp(${i},'gun')" ${hideStyle} >
                         <div class="card-text">
                             <div class="grid-title"><div class="circle-grid-title gun" onclick="speechHandler.speech('${b.guns[i].name}')"></div> &nbsp; ${build.nameLink(b.guns[i].name)}</div>
-                            ${b.guns[i].descriptionFunction()}</div> </div>`
+                            ${b.guns[i].descriptionFunction ? b.guns[i].descriptionFunction() : b.guns[i].description}</div> </div>`
         }
         for (let i = 0, len = tech.tech.length; i < len; i++) {
             if ((!tech.tech[i].isJunk || localSettings.isJunkExperiment) && !tech.tech[i].isLore) {
