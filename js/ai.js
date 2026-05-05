@@ -1,4 +1,5 @@
 (function() {
+    const enableAIAutopilot = window.polyGonEnableAIAutopilot === true;
     const inputSize = 14;
     const hiddenSize = 20;
     const outputSize = 7;
@@ -269,52 +270,54 @@
         }
     }
     // loadWeightsAndBiases();
-    simulation.ephemera.push({
-        name: "ai",
-        do() {
-            // saveWeightsAndBiases();
-            epsilon -= (epsilon > 0.1 ? 0.00001 : 0);
-            /* m.look = () => {
-                const scale = 0.8;
-                m.transSmoothX = canvas.width2 - m.pos.x - (simulation.mouse.x - canvas.width2) * scale;
-                m.transSmoothY = canvas.height2 - m.pos.y - (simulation.mouse.y - canvas.height2) * scale;
+    if (enableAIAutopilot) {
+        simulation.ephemera.push({
+            name: "ai",
+            do() {
+                // saveWeightsAndBiases();
+                epsilon -= (epsilon > 0.1 ? 0.00001 : 0);
+                /* m.look = () => {
+                    const scale = 0.8;
+                    m.transSmoothX = canvas.width2 - m.pos.x - (simulation.mouse.x - canvas.width2) * scale;
+                    m.transSmoothY = canvas.height2 - m.pos.y - (simulation.mouse.y - canvas.height2) * scale;
 
-                m.transX += (m.transSmoothX - m.transX) * 0.07;
-                m.transY += (m.transSmoothY - m.transY) * 0.07;
-            }; */
-            const mobPos = [];
-            for(let i = 0; i < mob.length; i++) {
-                mobPos.push({x: mob[i].position.x, y: mob[i].position.y})
-            }
-            const mapPos = [];
-            for(let i = 0; i < map.length; i++) {
-                mapPos.push({x: map[i].position.x, y: map[i].position.y})
-            }
-            const bodyPos = [];
-            for(let i = 0; i < body.length; i++) {
-                bodyPos.push({x: body[i].position.x, y: body[i].position.y})
-            }
-            const targetPosition = calculateTargetPosition(player, level.exit.x, level.exit.y);
-            const desiredOutput = calculateDesiredOutput(
-                player,
-                level.exit.x,
-                level.exit.y,
-                targetPosition.targetX,
-                targetPosition.targetY
-            );
-        
-            updateNeuralNetwork(
-                player,
-                level.exit.x,
-                level.exit.y,
-                JSON.stringify(mobPos),
-                JSON.stringify(mapPos),
-                JSON.stringify(bodyPos),
-                targetPosition.targetX,
-                targetPosition.targetY,
-                desiredOutput,
-                input
-            );
-        },
-    });
+                    m.transX += (m.transSmoothX - m.transX) * 0.07;
+                    m.transY += (m.transSmoothY - m.transY) * 0.07;
+                }; */
+                const mobPos = [];
+                for(let i = 0; i < mob.length; i++) {
+                    mobPos.push({x: mob[i].position.x, y: mob[i].position.y})
+                }
+                const mapPos = [];
+                for(let i = 0; i < map.length; i++) {
+                    mapPos.push({x: map[i].position.x, y: map[i].position.y})
+                }
+                const bodyPos = [];
+                for(let i = 0; i < body.length; i++) {
+                    bodyPos.push({x: body[i].position.x, y: body[i].position.y})
+                }
+                const targetPosition = calculateTargetPosition(player, level.exit.x, level.exit.y);
+                const desiredOutput = calculateDesiredOutput(
+                    player,
+                    level.exit.x,
+                    level.exit.y,
+                    targetPosition.targetX,
+                    targetPosition.targetY
+                );
+            
+                updateNeuralNetwork(
+                    player,
+                    level.exit.x,
+                    level.exit.y,
+                    JSON.stringify(mobPos),
+                    JSON.stringify(mapPos),
+                    JSON.stringify(bodyPos),
+                    targetPosition.targetX,
+                    targetPosition.targetY,
+                    desiredOutput,
+                    input
+                );
+            },
+        });
+    }
 })();

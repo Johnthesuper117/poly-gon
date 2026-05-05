@@ -1,4 +1,5 @@
 javascript:(function() {
+    const enableSpiderPlayerModel = window.polyGonEnableSpiderPlayerModel === true;
     const spiderGroup = Matter.Body.nextGroup(true);
     function createShard(x, y, angle, length = 40) {
         const verts = [
@@ -114,47 +115,49 @@ javascript:(function() {
         }
         return originalSetPosition(body, position);
     };
-    const oldStart = simulation.startGame;
-    simulation.startGame = function(isBuildRun = false, isTrainingRun = false) {
-        m.legs?.forEach(leg => {
-            Composite.remove(engine.world, leg.upper);
-            Composite.remove(engine.world, leg.lower);
-            Composite.remove(engine.world, leg.joint1);
-            Composite.remove(engine.world, leg.joint2);
-            Composite.remove(engine.world, leg.support);
-        });
-        m.legs = [];
-        oldStart(isBuildRun, isTrainingRun);
-        setTimeout(()=>{
-            if(isBuildRun) return;
-            spider.shipMode();
-            m.draw = () => { 
-                m.legs.forEach(leg => {
-                    m.drawShard(leg.upper);
-                    m.drawShard(leg.lower);
-                });
-                ctx.save();
-                ctx.globalAlpha = (m.immuneCycle < m.cycle) ? 1 : m.cycle % 3 ? 0.1 : 0.65 + 0.1 * Math.random()
-                ctx.translate(player.position.x, player.position.y);
-                ctx.rotate(m.angle);
-                ctx.beginPath();
-                ctx.arc(0, 0, 30, 0, 2 * Math.PI);
-                ctx.lineWidth = 2;
-                ctx.fillStyle = "black";
-                ctx.strokeStyle = "crimson";
-                ctx.fill();
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.lineTo(0, -10);
-                ctx.lineTo(10, 0);
-                ctx.lineTo(0, 10);
-                ctx.moveTo(30, 0);
-                ctx.lineTo(10, 0)
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.restore();
-            }
-        }, 100)
+    if (enableSpiderPlayerModel) {
+        const oldStart = simulation.startGame;
+        simulation.startGame = function(isBuildRun = false, isTrainingRun = false) {
+            m.legs?.forEach(leg => {
+                Composite.remove(engine.world, leg.upper);
+                Composite.remove(engine.world, leg.lower);
+                Composite.remove(engine.world, leg.joint1);
+                Composite.remove(engine.world, leg.joint2);
+                Composite.remove(engine.world, leg.support);
+            });
+            m.legs = [];
+            oldStart(isBuildRun, isTrainingRun);
+            setTimeout(() => {
+                if (isBuildRun || isTrainingRun) return;
+                spider.shipMode();
+                m.draw = () => {
+                    m.legs.forEach(leg => {
+                        m.drawShard(leg.upper);
+                        m.drawShard(leg.lower);
+                    });
+                    ctx.save();
+                    ctx.globalAlpha = (m.immuneCycle < m.cycle) ? 1 : m.cycle % 3 ? 0.1 : 0.65 + 0.1 * Math.random()
+                    ctx.translate(player.position.x, player.position.y);
+                    ctx.rotate(m.angle);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 30, 0, 2 * Math.PI);
+                    ctx.lineWidth = 2;
+                    ctx.fillStyle = "black";
+                    ctx.strokeStyle = "crimson";
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.lineTo(0, -10);
+                    ctx.lineTo(10, 0);
+                    ctx.lineTo(0, 10);
+                    ctx.moveTo(30, 0);
+                    ctx.lineTo(10, 0)
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.restore();
+                }
+            }, 100)
+        }
     }
     const oldDeath = m.death;
     m.death = function() {
